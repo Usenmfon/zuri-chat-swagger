@@ -46,6 +46,18 @@ class TaskService extends HttpRepo {
     return create;
   }
 
+  async getUserTask(params) {
+    const getUserTask = await this.repo.findWhere({task_assignee: params.assignee_id});
+
+    return getUserTask;
+  }
+
+  async deleteTaskCategory(params) {
+    const deleteTask = await this.repo.delete({object_id: params.category_id});
+
+    return deleteTask;
+  }
+
   async submitTask(data) {
     const collectionName = 'submissions';
 
@@ -54,17 +66,6 @@ class TaskService extends HttpRepo {
     const submission = await this.repo.create(data);
 
     return submission;
-  }
-  async getUserTask(params) {
-    const getUserTask = await this.repo.getUserTask({object_id: params.id});
-
-    return getUserTask;
-  }
-
-  async deleteTaskCategory(params) {
-    const deleteTask = await this.repo.delete(params);
-
-    return deleteTask;
   }
 }
 
